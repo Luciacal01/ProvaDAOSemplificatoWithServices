@@ -1,5 +1,6 @@
 package it.prova.test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class TestUser {
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
 			// E TUTTI I TEST VANNO FATTI COSI'
-			testCercaTuttiQuelliCheUsernameIniziaCon(userService);
+			// testCercaTuttiQuelliCheUsernameIniziaCon(userService);
+			testCercaTuttiQuelliCreatiPrimaDi(userService);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,6 +124,22 @@ public class TestUser {
 		}
 
 		System.out.println("...........testCercaTuttiQuelliCheUsernameIniziaCon PASSED.........");
+	}
+
+	public static void testCercaTuttiQuelliCreatiPrimaDi(UserService userService) throws Exception {
+		System.out.println("...........testCercaTuttiQuelliCreatiPrimaDi   INIZIO.........");
+
+		Date dataCostruzioneDaConfrontare = new SimpleDateFormat("dd-MM-yyyy").parse("10-05-2022");
+		List<User> listaUserCreatiPrimaDel = userService.cercaTuttiQuelliCreatiPrimaDi(dataCostruzioneDaConfrontare);
+		// if (listaUserUsernameIniziaCon.size() < 1)
+		// throw new RuntimeException("test: testCercaTuttiQuelliCheUsernameIniziaCon
+		// FAILED ");
+
+		for (User userItem : listaUserCreatiPrimaDel) {
+			System.out.println(userItem.getId() + " " + userItem.getNome() + " " + userItem.getCognome());
+		}
+
+		System.out.println("...........testCercaTuttiQuelliCreatiPrimaDi PASSED.........");
 	}
 
 }
