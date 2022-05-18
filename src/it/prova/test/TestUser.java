@@ -36,6 +36,7 @@ public class TestUser {
 			testCercaTuttiQuelliCheUsernameIniziaCon(userService);
 			testCercaTuttiQuelliCreatiPrimaDi(userService);
 			testCercaPerCognomeENomeCheInziaCon(userService);
+			testAccedi(userService);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -157,4 +158,13 @@ public class TestUser {
 		System.out.println("...........testCercaPerCognomeENomeCheInziaCon PASSED.........");
 	}
 
+	public static void testAccedi(UserService userService) throws Exception {
+		System.out.println("...........testAccedi   INIZIO.........");
+
+		User user = userService.accedi("g.verdi@gmail.com", "ggg432");
+		if (user == null)
+			throw new RuntimeException("test: testAccedi FAILED ");
+
+		System.out.println("...........testAccedi PASSED.........");
+	}
 }
