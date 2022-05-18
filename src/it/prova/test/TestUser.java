@@ -20,21 +20,22 @@ public class TestUser {
 			// ora con il service posso fare tutte le invocazioni che mi servono
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
-			// testInserimentoNuovoUser(userService);
+			testInserimentoNuovoUser(userService);
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
-			// testRimozioneUser(userService);
+			testRimozioneUser(userService);
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
-			// testFindByExample(userService);
+			testFindByExample(userService);
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
-			// testUpdateUser(userService);
+			testUpdateUser(userService);
 			System.out.println("In tabella ci sono " + userService.listAll().size() + " elementi.");
 
 			// E TUTTI I TEST VANNO FATTI COSI'
-			// testCercaTuttiQuelliCheUsernameIniziaCon(userService);
+			testCercaTuttiQuelliCheUsernameIniziaCon(userService);
 			testCercaTuttiQuelliCreatiPrimaDi(userService);
+			testCercaPerCognomeENomeCheInziaCon(userService);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,15 +132,29 @@ public class TestUser {
 
 		Date dataCostruzioneDaConfrontare = new SimpleDateFormat("dd-MM-yyyy").parse("10-05-2022");
 		List<User> listaUserCreatiPrimaDel = userService.cercaTuttiQuelliCreatiPrimaDi(dataCostruzioneDaConfrontare);
-		// if (listaUserUsernameIniziaCon.size() < 1)
-		// throw new RuntimeException("test: testCercaTuttiQuelliCheUsernameIniziaCon
-		// FAILED ");
+		if (listaUserCreatiPrimaDel.size() < 1)
+			throw new RuntimeException("test: testCercaTuttiQuelliCreatiPrimaDi FAILED ");
 
 		for (User userItem : listaUserCreatiPrimaDel) {
 			System.out.println(userItem.getId() + " " + userItem.getNome() + " " + userItem.getCognome());
 		}
 
 		System.out.println("...........testCercaTuttiQuelliCreatiPrimaDi PASSED.........");
+	}
+
+	public static void testCercaPerCognomeENomeCheInziaCon(UserService userService) throws Exception {
+		System.out.println("...........testCercaPerCognomeENomeCheInziaCon   INIZIO.........");
+
+		List<User> listaUserConCognomeUgualeENomeCheIniziaCon = userService.cercaPerCognomeENomeCheInziaCon("rossi",
+				"g");
+		if (listaUserConCognomeUgualeENomeCheIniziaCon.size() < 1)
+			throw new RuntimeException("test: testCercaPerCognomeENomeCheInziaCon FAILED ");
+
+		for (User userItem : listaUserConCognomeUgualeENomeCheIniziaCon) {
+			System.out.println(userItem.getId() + " " + userItem.getNome() + " " + userItem.getCognome());
+		}
+
+		System.out.println("...........testCercaPerCognomeENomeCheInziaCon PASSED.........");
 	}
 
 }
